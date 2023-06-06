@@ -1,0 +1,229 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latte}[2023/06/02 v1.0 Latte Package]
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{derivative}
+\RequirePackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\RequirePackage{fancyhdr}
+\RequirePackage{xfrac}
+\RequirePackage{esint}
+\RequirePackage{float}
+\RequirePackage{graphicx}
+\RequirePackage{cancel}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{fancyhdr}
+\RequirePackage{siunitx}
+\RequirePackage{mathtools}
+\RequirePackage{setspace}
+
+\DeclareSIUnit\angstrom{\text{\AA}}
+
+% Don't indent paragraphs, leave some space between them
+\RequirePackage{parskip}
+
+% Hide page number when page is empty
+\RequirePackage{emptypage}
+\RequirePackage{subcaption}
+\RequirePackage{multicol}
+\RequirePackage{xcolor}
+
+\RequirePackage{mathrsfs}
+\RequirePackage{cancel}
+\RequirePackage{bm}
+
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+
+\RequirePackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\RequirePackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+
+\newcommand{\p}[1]{\left( #1 \right)}
+\newcommand{\br}[1]{\left[ #1 \right]}
+\newcommand{\cbr}[1]{\left\{ #1 \right\}}
+\renewcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\degC}{{}^\circ \text{C}}
+\newcommand{\degF}{{}^\circ \text{F}}
+\newcommand{\degK}{{}^\circ \text{K}}
+\newcommand{\powp}[2]{\p{#1}^\p{#2}}
+\newcommand{\pow}[2]{{#1}^{#2}}
+\newcommand{\intlim}[4]{\int\limits_{#1}^{#2} #3 d #4}
+\newcommand{\grad}[1]{\nabla #1}
+\newcommand{\del}{\nabla}
+\renewcommand{\div}[1]{\nabla \cdot #1}
+\newcommand{\curl}[1]{\nabla \times #1}
+
+\newcommand{\xhat}{\ensuremath{\mathbf{\hat{x}}}}
+\newcommand{\yhat}{\ensuremath{\mathbf{\hat{y}}}}
+\newcommand{\zhat}{\ensuremath{\mathbf{\hat{z}}}}
+
+\newcommand{\rhohat}{\ensuremath{\mathbf{\hat{\rho}}}}
+
+\newcommand{\rhat}{\ensuremath{\mathbf{\hat{r}}}}
+\newcommand{\thetahat}{\ensuremath{\mathbf{\hat{\theta}}}}
+\newcommand{\phihat}{\ensuremath{\mathbf{\hat{\phi}}}}
+
+\graphicspath{ {./} }
+
+\allowdisplaybreaks
+
+\RequirePackage{thmtools}
+\RequirePackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em, innertopmargin=5pt, innerbottommargin=6pt}
+
+\theoremstyle{definition}
+
+\makeatletter
+
+\@ifclasswith{report}{nocolor}{
+    \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, mdframed={ nobreak } ]{thmgreenbox}
+    \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, mdframed={ nobreak } ]{thmredbox}
+    \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont]{thmbluebox}
+    \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont]{thmblueline}
+    \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, numbered=no, mdframed={ rightline=false, topline=false, bottomline=false, }, qed=\qedsymbol ]{thmproofbox}
+    \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, numbered=no, mdframed={ nobreak, rightline=false, topline=false, bottomline=false } ]{thmexplanationbox}
+    \AtEndEnvironment{eg}{\null\hfill$\diamond$}%
+}{
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+        }
+    ]{thmgreenbox}
+
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+        }
+    ]{thmbluebox}
+
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=NavyBlue
+        }
+    ]{thmblueline}
+
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=RawSienna, backgroundcolor=RawSienna!5,
+        }
+    ]{thmredbox}
+
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+        numbered=no,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=RawSienna, backgroundcolor=RawSienna!1,
+        },
+        qed=\qedsymbol
+    ]{thmproofbox}
+
+    \declaretheoremstyle[
+        headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+        numbered=no,
+        mdframed={
+            linewidth=2pt,
+            rightline=false, topline=false, bottomline=false,
+            linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+        },
+    ]{thmexplanationbox}
+}
+
+\declaretheorem[style=thmgreenbox, name=Definition]{definition}
+\declaretheorem[style=thmbluebox, numbered=no, name=Example]{eg}
+\declaretheorem[style=thmbluebox, numbered=no, name=Exercise]{ex}
+\declaretheorem[style=thmredbox, name=Proposition]{prop}
+\declaretheorem[style=thmredbox, name=Theorem]{theorem}
+\declaretheorem[style=thmredbox, name=Lemma]{lemma}
+\declaretheorem[style=thmredbox, numbered=no, name=Corollary]{corollary}
+
+\@ifclasswith{report}{nocolor}{
+    \declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
+    \declaretheorem[style=thmexplanationbox, name=Proof]{explanation}
+    \renewenvironment{proof}[1][\proofname]{\begin{replacementproof}}{\end{replacementproof}}
+}{
+    \declaretheorem[style=thmproofbox, name=Proof]{replacementproof}
+    \renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+
+    \declaretheorem[style=thmexplanationbox, name=Proof]{tmpexplanation}
+    \newenvironment{explanation}[1][]{\vspace{-10pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+}
+
+\makeatother
+
+
+\declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
+\declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
+
+\newtheorem*{notation}{Notation}
+\newtheorem*{previouslyseen}{As previously seen}
+\newtheorem*{problem}{Problem}
+\newtheorem*{observe}{Observe}
+\newtheorem*{property}{Property}
+\newtheorem*{intuition}{Intuition}
+
+\RequirePackage{tcolorbox}
+
+% Make boxes breakable
+\tcbuselibrary{breakable}
+
+\RequirePackage{import}
+\RequirePackage{xifthen}
+\RequirePackage{pdfpages}
+\RequirePackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+\pdfsuppresswarningpagegroup=1
+
+
+% tikz
+\RequirePackage{tikz}
+\RequirePackage{tikz-cd}
+\usetikzlibrary{intersections, angles, quotes, calc, positioning}
+\usetikzlibrary{arrows.meta}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+
+\tikzset{
+    force/.style={thick, {Circle[length=2pt]}-stealth, shorten <=-1pt}
+}
